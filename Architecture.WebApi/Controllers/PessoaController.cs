@@ -1,4 +1,4 @@
-﻿using Architecture.Application.Domain.DTOs.Pessoa;
+﻿using Architecture.Application.Domain.Models.Pessoa;
 using Architecture.Application.UseCases.IUseCases;
 using Microsoft.AspNetCore.Mvc;
 

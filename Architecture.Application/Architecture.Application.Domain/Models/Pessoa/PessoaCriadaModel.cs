@@ -1,4 +1,4 @@
-﻿namespace Architecture.Application.Domain.DTOs.Pessoa;
+﻿namespace Architecture.Application.Domain.Models.Pessoa;
 
 public class PessoaCriadaModel
 {

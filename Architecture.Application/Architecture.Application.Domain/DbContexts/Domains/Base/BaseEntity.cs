@@ -1,6 +1,6 @@
 ﻿using Architecture.Application.Core.Notifications.Notifiable;
 
-namespace Architecture.Application.Domain.Domains.Base;
+namespace Architecture.Application.Domain.DbContexts.Domains.Base;
 
 public partial class BaseEntity : Notifiable, IEntity
 {

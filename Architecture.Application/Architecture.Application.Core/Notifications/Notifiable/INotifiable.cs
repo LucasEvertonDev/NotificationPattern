@@ -4,7 +4,7 @@ namespace Architecture.Application.Core.Notifications.Notifiable
 {
     public interface INotifiable
     {
-        NotificationsService AddNotifications();
+        ConditionalNotificationsService ValidateWhen();
         bool IsValid();
         void SetNotificationContext(NotificationContext context);
     }

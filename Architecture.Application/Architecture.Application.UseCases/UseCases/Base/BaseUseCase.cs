@@ -12,7 +12,7 @@ public abstract class BaseUseCase<TParam, TRetorno>
 {
     private readonly IUnitOfWork _unitOfWork;
     protected readonly IIdentity _identity;
-    private readonly NotificationContext _notificationContext;
+    protected readonly NotificationContext _notificationContext;
 
     public BaseUseCase(IServiceProvider serviceProvider)
     {
@@ -53,9 +53,27 @@ public abstract class BaseUseCase<TParam, TRetorno>
         }
     }
 
-    protected TEntity Entity<TEntity>() where TEntity : Notifiable
+    /// <summary>
+    /// Instancia classe para trabalhar com notificationPattern
+    /// </summary>
+    /// <typeparam name="TNotifiable"></typeparam>
+    /// <returns></returns>
+    protected TNotifiable Inject<TNotifiable>() where TNotifiable : Notifiable
     {
-        var entity = Activator.CreateInstance<TEntity>();
+        var entity = Activator.CreateInstance<TNotifiable>();
+        entity.SetNotificationContext(_notificationContext);
+        return entity;
+    }
+
+
+    /// <summary>
+    /// Instancia classe para trabalhar com notificationPattern
+    /// </summary>
+    /// <typeparam name="TNotifiable"></typeparam>
+    /// <returns></returns>
+    protected TNotifiable InjectVO<TNotifiable>() where TNotifiable : NotifiableValueObject
+    {
+        var entity = Activator.CreateInstance<TNotifiable>();
         entity.SetNotificationContext(_notificationContext);
         return entity;
     }

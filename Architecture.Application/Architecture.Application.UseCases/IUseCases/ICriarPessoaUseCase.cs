@@ -1,4 +1,4 @@
-﻿using Architecture.Application.Domain.DTOs.Pessoa;
+﻿using Architecture.Application.Domain.Models.Pessoa;
 
 namespace Architecture.Application.UseCases.IUseCases
 {

@@ -1,5 +1,5 @@
-﻿using Architecture.Application.Domain.Domains;
-using Architecture.Application.Domain.DTOs.Pessoa;
+﻿using Architecture.Application.Domain.DbContexts.Domains;
+using Architecture.Application.Domain.Models.Pessoa;
 using Architecture.Application.UseCases.IUseCases;
 using Architecture.Application.UseCases.UseCases.Base;
 
@@ -14,8 +14,20 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
 
         public override Task<PessoaCriadaModel> ExecuteAsync(CriarPessoaModel param)
         {
-            var pessoa = Entity<Pessoa>().CriarPessoa(
-                nome: param.Nome,
+            ///https://balta.io/blog/ef-core-value-objects
+            //var nome = InjectVO<Nome>().CreateNome(param.PrimeiroNome, param.Sobrenome);
+            //var nomeb = InjectVO<Nome>().CreateNome(param.PrimeiroNome, param.Sobrenome);
+
+            ////if(nome == nomeb)
+            ////{
+
+            ////}
+
+            ////var aux  = _notificationContext.Notifications;
+
+            var pessoa = Inject<Pessoa>().CriarPessoa(
+                primeiroNome: param.PrimeiroNome,
+                sobrenome: param.Sobrenome,
                 email: param.Email,
                 dataNascimento: param.DataNascimento
             );
