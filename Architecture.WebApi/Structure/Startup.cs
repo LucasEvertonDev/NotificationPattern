@@ -3,6 +3,7 @@ using Architecture.Application.Core.Structure;
 using Architeture.Infra.IoC;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Architecture.WebApi.Structure.Filters;
 
 namespace Architecture.WebApi.Structure;
 
@@ -20,7 +21,10 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddMvc();
+        services.AddMvc(options =>
+        {
+            options.Filters.Add<NotificationFilter>();
+        });
 
         services.AddControllers();
 
@@ -36,7 +40,7 @@ public class Startup
 
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "PLaboratory.WebAPI", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Architeture.WebAPI", Version = "v1" });
         });
 
         services.AddInfraStructure(appSettings);

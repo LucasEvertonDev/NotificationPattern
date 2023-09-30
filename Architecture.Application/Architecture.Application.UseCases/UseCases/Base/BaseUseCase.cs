@@ -1,6 +1,6 @@
 ﻿using Architecture.Application.Core.Notifications;
 using Architecture.Application.Core.Notifications.Context;
-using Architecture.Application.Core.Notifications.Notification;
+using Architecture.Application.Core.Notifications.Notifiable;
 using Architecture.Application.Core.Structure.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,14 +53,17 @@ public abstract class BaseUseCase<TParam, TRetorno>
         }
     }
 
-    protected TEntity Entity<TEntity>() where TEntity : Notification
+    protected TEntity Entity<TEntity>() where TEntity : Notifiable
     {
         var entity = Activator.CreateInstance<TEntity>();
         entity.SetNotificationContext(_notificationContext);
         return entity;
     }
 
-    public List<NotificationModel> GetNotifications() => _notificationContext.Notifications.ToList();
+    public void RegisterNotification()
+    {
+
+    }
 }
 
 public abstract class BaseUseCase<TParam>

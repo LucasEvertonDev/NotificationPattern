@@ -1,7 +1,7 @@
 ﻿using Architecture.Application.Domain.Constants;
-using Architecture.Application.Domain.Entities.Base;
+using Architecture.Application.Domain.Domains.Base;
 
-namespace Architecture.Application.Domain.Entities;
+namespace Architecture.Application.Domain.Domains;
 
 public partial class Pessoa : BaseEntity
 {
@@ -11,8 +11,10 @@ public partial class Pessoa : BaseEntity
 
     public Pessoa CriarPessoa(string nome, string email, DateTime? dataNascimento)
     {
-        RuleFor(string.IsNullOrEmpty(nome), PessoaValidations.NomeObrigatorio);
-        RuleFor(string.IsNullOrEmpty(email), PessoaValidations.EmailObrigatorio);
+        AddNotifications()
+           .If(string.IsNullOrEmpty(nome), PessoaValidations.NomeObrigatorio)
+           .IfIsNullOrEmpty(email, PessoaValidations.EmailObrigatorio)
+           .IfIsInvalidEmail(email, PessoaValidations.EmailInválido);
 
         Nome = nome;
         Email = email;
@@ -20,5 +22,4 @@ public partial class Pessoa : BaseEntity
 
         return this;
     }
-
 }

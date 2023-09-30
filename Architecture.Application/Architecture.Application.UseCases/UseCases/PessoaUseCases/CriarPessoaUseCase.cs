@@ -1,5 +1,5 @@
-﻿using Architecture.Application.Domain.DTOs.Pessoa;
-using Architecture.Application.Domain.Entities;
+﻿using Architecture.Application.Domain.Domains;
+using Architecture.Application.Domain.DTOs.Pessoa;
 using Architecture.Application.UseCases.IUseCases;
 using Architecture.Application.UseCases.UseCases.Base;
 
@@ -19,8 +19,6 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
                 email: param.Email,
                 dataNascimento: param.DataNascimento
             );
-
-            var aux = this.GetNotifications();
 
             if (!pessoa.IsValid())
             {
