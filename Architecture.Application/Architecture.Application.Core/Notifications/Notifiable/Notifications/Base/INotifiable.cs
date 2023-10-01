@@ -4,7 +4,6 @@ namespace Architecture.Application.Core.Notifications.Notifiable.Notifications.B
 {
     public interface INotifiable
     {
-        bool IsValid();
         void SetNotificationContext(NotificationContext context);
     }
 }

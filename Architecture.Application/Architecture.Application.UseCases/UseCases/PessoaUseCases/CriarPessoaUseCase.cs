@@ -34,6 +34,11 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
                 Notifications.Failure(new Core.Notifications.NotificationModel("business_logic", "Nome inválido."));
             }
 
+            if(HasError())
+            {
+                return Task.FromResult(new PessoaCriadaModel());
+            }
+
             return Task.FromResult(new PessoaCriadaModel()
             {
                 Message = "Filé demais"

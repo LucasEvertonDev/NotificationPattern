@@ -19,7 +19,7 @@ public partial class Notifiable : INotifiable
     /// Indica se o dominio é válido ou não
     /// </summary>
     /// <returns></returns>
-    public bool IsValid()
+    public bool HasError()
     {
         return !Notifications.HasNotifications;
     }

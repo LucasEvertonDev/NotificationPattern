@@ -2,5 +2,5 @@
 
 public interface IDomainNotifiable : INotifiable
 {
-
+    bool IsValid();
 }
