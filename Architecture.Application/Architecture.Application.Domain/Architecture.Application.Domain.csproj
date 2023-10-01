@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DbContexts\DomainServices\" />
     <Folder Include="Enuns\" />
   </ItemGroup>
 

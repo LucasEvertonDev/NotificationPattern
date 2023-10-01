@@ -4,6 +4,10 @@ using Architeture.Infra.IoC;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Architecture.WebApi.Structure.Filters;
+using MS.Services.Auth.WebAPI.Infrastructure.Filters;
+using Architectury.Infra.Plugins;
+using FluentValidation;
+using Architectury.Infra.Plugins.FluentValidation;
 
 namespace Architecture.WebApi.Structure;
 
@@ -23,10 +27,13 @@ public class Startup
     {
         services.AddMvc(options =>
         {
+            options.Filters.Add<ValidationFilter>();
             options.Filters.Add<NotificationFilter>();
         });
 
         services.AddControllers();
+
+        services.AddScoped<ICustomValidatorFactory, CustomValidatorFactory>();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
@@ -44,6 +51,8 @@ public class Startup
         });
 
         services.AddInfraStructure(appSettings);
+
+        services.AddValidatorsFromAssemblyContaining<BaseValidator>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,6 +1,7 @@
 ﻿using Architecture.Application.Core;
 using Architecture.Application.Core.Structure;
 using Architecture.Application.UseCases;
+using Architectury.Infra.Plugins;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Architeture.Infra.IoC;
@@ -14,5 +15,7 @@ public static class BootstrapModule
         services.RegisterCoreServices(configuration);
 
         services.RegisterUseCasesServices(configuration);
+
+        services.AddPlugins(configuration);
     }
 }
