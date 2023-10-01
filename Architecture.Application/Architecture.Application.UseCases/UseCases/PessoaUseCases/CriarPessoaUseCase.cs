@@ -24,17 +24,17 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
                 enderecoModel: param.Endereco
             );
 
-            if (!pessoa.IsValid())
+            //if (!pessoa.IsValid())
+            //{
+            //    return Task.FromResult(new PessoaCriadaModel());
+            //}
+
+            if (pessoa.Nome.Sobrenome == "")
             {
-                return Task.FromResult(new PessoaCriadaModel());
+                Notifications.Failure(new Core.Notifications.NotificationModel("business_logic", "Teste 2."));
             }
 
-            if (pessoa.Nome.Sobrenome == "string")
-            {
-                Notifications.Failure(new Core.Notifications.NotificationModel("business_logic", "Nome inválido."));
-            }
-
-            if(HasError())
+            if (HasError())
             {
                 return Task.FromResult(new PessoaCriadaModel());
             }

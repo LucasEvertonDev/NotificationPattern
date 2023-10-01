@@ -12,13 +12,12 @@ public abstract class BaseUseCase<TParam, TRetorno> : Notifiable
 {
     private readonly IUnitOfWork _unitOfWork;
     protected readonly IIdentity _identity;
-    protected readonly NotificationContext _notificationContext;
 
     public BaseUseCase(IServiceProvider serviceProvider)
     {
         _unitOfWork = serviceProvider.GetService<IUnitOfWork>();
         _identity = serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext?.User?.Identity;
-        _notificationContext = serviceProvider.GetService<NotificationContext>();
+        Notifications = serviceProvider.GetService<NotificationContext>();
     }
 
     public abstract Task<TRetorno> ExecuteAsync(TParam param);
@@ -61,7 +60,8 @@ public abstract class BaseUseCase<TParam, TRetorno> : Notifiable
     protected TNotifiable Notifiable<TNotifiable>() where TNotifiable : INotifiable
     {
         var entity = Activator.CreateInstance<TNotifiable>();
-        entity.SetNotificationContext(_notificationContext);
+        entity.SetNotificationContext(Notifications);
+        entity.SetAggregateRoot(true);
         return entity;
     }
 }

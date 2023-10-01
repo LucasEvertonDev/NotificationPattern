@@ -4,6 +4,8 @@ namespace Architecture.Application.Core.Notifications.Notifiable.Notifications.B
 {
     public interface INotifiable
     {
+        void SetAggregateRoot(bool value);
+
         void SetNotificationContext(NotificationContext context);
     }
 }

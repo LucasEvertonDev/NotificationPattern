@@ -9,6 +9,8 @@ public partial class Notifiable : INotifiable
     /// </summary>
     protected NotificationContext Notifications { get; set; }
 
+    protected NotificationInfo NotificationInfo { get; set; }
+
     /// <summary>
     /// Set Notification Context
     /// </summary>
@@ -21,7 +23,7 @@ public partial class Notifiable : INotifiable
     /// <returns></returns>
     public bool HasError()
     {
-        return !Notifications.HasNotifications;
+        return Notifications.HasNotifications;
     }
 
     /// <summary>
@@ -34,5 +36,14 @@ public partial class Notifiable : INotifiable
         var entity = Activator.CreateInstance<TNotifiable>();
         entity.SetNotificationContext(Notifications);
         return entity;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetAggregateRoot(bool value)
+    {
+        NotificationInfo.MainDomain = false;
     }
 }

@@ -6,18 +6,18 @@ public class AfterValidationWhenObject : AfterValidationWhen, IAfterValidationWh
 {
     protected object _currentvalue { get; set; }
 
-    public AfterValidationWhenObject(NotificationContext notificationContext, object value) : base(notificationContext, value)
+    public AfterValidationWhenObject(NotificationContext notificationContext, NotificationInfo notificationInfo) : base(notificationContext, notificationInfo)
     {
-        _currentvalue = value;
+        _currentvalue = notificationInfo.Value;
     }
 
     public AddNotificationService<AfterValidationWhenObject> Is(bool ruleFor)
     {
-        return new AddNotificationService<AfterValidationWhenObject>(_notificationContext, ruleFor, _currentvalue);
+        return new AddNotificationService<AfterValidationWhenObject>(_notificationContext, ruleFor, _notificationInfo);
     }
 
     public AddNotificationService<AfterValidationWhenObject> IsNull(bool ruleFor)
     {
-        return new AddNotificationService<AfterValidationWhenObject>(_notificationContext, ruleFor, _currentvalue == null);
+        return new AddNotificationService<AfterValidationWhenObject>(_notificationContext, ruleFor, _notificationInfo);
     }
 }

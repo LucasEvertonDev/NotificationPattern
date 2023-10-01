@@ -6,16 +6,35 @@ namespace Architecture.Application.Core.Notifications.Notifiable.Notifications;
 
 public partial class DomainNotifiable<TEntity> : IDomainNotifiable
 {
+    protected NotificationInfo NotificationInfo { get; set; }
+
+    public DomainNotifiable()
+    {
+        NotificationInfo = new NotificationInfo()
+        {
+            NotificationType = Enum.NotificationType.DomainNotification,
+            Name = typeof(TEntity).Name,
+            Namespace = typeof(TEntity).Namespace
+        };
+    }
+
+
     /// <summary>
     /// Notification Context
     /// </summary>
     protected NotificationContext NotificationContext { get; set; }
 
     /// <summary>
-    /// Set Notification Context
+    /// 
     /// </summary>
     /// <param name="context"></param>
-    public void SetNotificationContext(NotificationContext context) => NotificationContext = context;
+    /// <exception cref="NotImplementedException"></exception>
+    public void SetNotificationContext(NotificationContext context)
+    {
+        NotificationContext = context;
+    }
+
+    protected List<NotificationModel> Notifications => NotificationContext.Notifications.Where(a => a.context == NotificationInfo.Namespace).ToList();
 
     /// <summary>
     /// Indica se o dominio é válido ou não
@@ -23,7 +42,7 @@ public partial class DomainNotifiable<TEntity> : IDomainNotifiable
     /// <returns></returns>
     public bool IsValid()
     {
-        return !NotificationContext.HasNotifications;
+        return !Notifications.Any();
     }
 
     /// <summary>
@@ -51,7 +70,18 @@ public partial class DomainNotifiable<TEntity> : IDomainNotifiable
             if (property != null)
             {
                 property.SetValue(this, value, null);
+                NotificationInfo.MemberName = !NotificationInfo.MainDomain ? string.Concat(NotificationInfo.Name, ".", property.Name) : property.Name;
             }
         }
+        NotificationInfo.Value = value;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetAggregateRoot(bool value)
+    {
+        this.NotificationInfo.MainDomain = true;
     }
 }

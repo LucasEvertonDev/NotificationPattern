@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Architecture.Application.Core.Notifications.Notifiable.Notifications;
 
-public partial class DomainNotifiable<TEntity> : INotifiable
+public partial class DomainNotifiable<TEntity> : IDomainNotifiable
 {
     /// <summary>
     ///  Quando record as notificaçoes são integradas de forma interna 
@@ -27,7 +27,7 @@ public partial class DomainNotifiable<TEntity> : INotifiable
     }
 }
 
-public partial record RecordNotifiable<TEntity> : INotifiable
+public partial record RecordNotifiable<TEntity> : IRecordNotifiable
 {
     /// <summary>
     ///  Quando record as notificaçoes são integradas de forma interna 

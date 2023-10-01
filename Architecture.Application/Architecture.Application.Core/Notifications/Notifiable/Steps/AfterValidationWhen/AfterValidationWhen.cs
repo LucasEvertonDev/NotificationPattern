@@ -4,12 +4,14 @@ namespace Architecture.Application.Core.Notifications.Notifiable.Steps.AfterVali
 
 public class AfterValidationWhen : IAfterValidationWhen
 {
+    protected NotificationInfo _notificationInfo { get; set; }
     protected readonly NotificationContext _notificationContext;
     protected readonly dynamic _value;
 
-    public AfterValidationWhen(NotificationContext notificationContext, dynamic value)
+    public AfterValidationWhen(NotificationContext notificationContext, NotificationInfo notificationInfo)
     {
         _notificationContext = notificationContext;
-        _value = value;
+        _notificationInfo = notificationInfo;
+        _value = notificationInfo.Value;
     }
 }

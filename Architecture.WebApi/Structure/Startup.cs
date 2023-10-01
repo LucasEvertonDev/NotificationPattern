@@ -27,7 +27,7 @@ public class Startup
     {
         services.AddMvc(options =>
         {
-            options.Filters.Add<ValidationFilter>();
+            ////options.Filters.Add<ValidationFilter>();
             options.Filters.Add<NotificationFilter>();
         });
 
@@ -52,7 +52,7 @@ public class Startup
 
         services.AddInfraStructure(appSettings);
 
-        services.AddValidatorsFromAssemblyContaining<BaseValidator>();
+        //services.AddValidatorsFromAssemblyContaining<BaseValidator>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
