@@ -1,4 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using Architecture.Application.Core.Notifications.Notifiable;
+using Architecture.Application.Core.Notifications.Notifiable.Steps.AfterValidationWhen;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Architecture.Application.Core.Notifications.Services
 {
@@ -11,36 +15,36 @@ namespace Architecture.Application.Core.Notifications.Services
             _notificationContext = notificationContext;
         }
 
-        public ValidationService Is(bool ruleFor)
+        public NotificationService Is(bool ruleFor)
         {
-            return new ValidationService(_notificationContext, ruleFor);
+            return new NotificationService(_notificationContext, ruleFor);
         }
 
-        public ValidationService IsInvalidEmail(string email)
+        public NotificationService IsInvalidEmail(string email)
         {
-            return new ValidationService(_notificationContext, !Regex.IsMatch((string)email, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"));
+            return new NotificationService(_notificationContext, !Regex.IsMatch((string)email, @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"));
         }
 
-        public ValidationService IsNullOrEmpty(string value)
+        public NotificationService IsNullOrEmpty(string value)
         {
-            return new ValidationService(_notificationContext, string.IsNullOrEmpty(value));
+            return new NotificationService(_notificationContext, string.IsNullOrEmpty(value));
         }
     }
 
-    public class ValidationService
+    public class NotificationService
     {
         private readonly NotificationContext _notificationContext;
         private readonly bool _includeNotification;
 
-        public ValidationService(NotificationContext notificationContext, bool includeNotification)
+        public NotificationService(NotificationContext notificationContext, bool includeNotification)
         {
             _notificationContext = notificationContext;
             _includeNotification = includeNotification;
         }
 
-        public ConditionalNotificationsService Notification (NotificationModel notification)
+        public ConditionalNotificationsService Notification(NotificationModel notification)
         {
-            if(_includeNotification)
+            if (_includeNotification)
             {
                 _notificationContext.AddNotification(notification);
             }

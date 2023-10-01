@@ -1,10 +1,9 @@
 ﻿using Architecture.Application.Core.Notifications.Services;
 
-namespace Architecture.Application.Core.Notifications.Notifiable
+namespace Architecture.Application.Core.Notifications.Notifiable.Notifications.Base
 {
     public interface INotifiable
     {
-        ConditionalNotificationsService ValidateWhen();
         bool IsValid();
         void SetNotificationContext(NotificationContext context);
     }

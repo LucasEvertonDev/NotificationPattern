@@ -25,7 +25,7 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
 
             ////var aux  = _notificationContext.Notifications;
 
-            var pessoa = Inject<Pessoa>().CriarPessoa(
+            var pessoa = Notify<Pessoa>().CriarPessoa(
                 primeiroNome: param.PrimeiroNome,
                 sobrenome: param.Sobrenome,
                 email: param.Email,

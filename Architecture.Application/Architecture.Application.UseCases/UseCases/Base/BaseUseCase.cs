@@ -1,6 +1,6 @@
 ﻿using Architecture.Application.Core.Notifications;
 using Architecture.Application.Core.Notifications.Context;
-using Architecture.Application.Core.Notifications.Notifiable;
+using Architecture.Application.Core.Notifications.Notifiable.Notifications.Base;
 using Architecture.Application.Core.Structure.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,25 +58,13 @@ public abstract class BaseUseCase<TParam, TRetorno>
     /// </summary>
     /// <typeparam name="TNotifiable"></typeparam>
     /// <returns></returns>
-    protected TNotifiable Inject<TNotifiable>() where TNotifiable : Notifiable
+    protected TNotifiable Notify<TNotifiable>() where TNotifiable : INotifiable
     {
         var entity = Activator.CreateInstance<TNotifiable>();
         entity.SetNotificationContext(_notificationContext);
         return entity;
     }
 
-
-    /// <summary>
-    /// Instancia classe para trabalhar com notificationPattern
-    /// </summary>
-    /// <typeparam name="TNotifiable"></typeparam>
-    /// <returns></returns>
-    protected TNotifiable InjectVO<TNotifiable>() where TNotifiable : NotifiableValueObject
-    {
-        var entity = Activator.CreateInstance<TNotifiable>();
-        entity.SetNotificationContext(_notificationContext);
-        return entity;
-    }
 
     public void RegisterNotification()
     {

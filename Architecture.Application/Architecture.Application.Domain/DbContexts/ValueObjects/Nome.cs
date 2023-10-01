@@ -1,8 +1,9 @@
 ﻿using Architecture.Application.Core.Notifications.Notifiable;
+using Architecture.Application.Domain.DbContexts.ValueObjects.Base;
 
 namespace Architecture.Application.Domain.DbContexts.ValueObjects;
 
-public record Nome : NotifiableValueObject
+public record Nome : ValueObjectRecord<Nome>
 {
     public Nome() { }
 
@@ -12,15 +13,18 @@ public record Nome : NotifiableValueObject
 
     public string NomeCompleto() => string.Concat(PrimeiroNome, " ", Sobrenome);
 
-    public Nome CreateNome(string primeiroNome, string sobrenome)
+    public Nome CriarNome(string primeiroNome, string sobrenome)
     {
-        ValidateWhen()
-           .IsNullOrEmpty(primeiroNome).Notification(new NotificationModel("PRIMEIRO_NOME", "Primeiro nome é obrigatório"))
-           .IsNullOrEmpty(sobrenome).Notification(new NotificationModel("SOBRENOME", "SobreNome é obrigatório"));
+        Set(nome => nome.PrimeiroNome, primeiroNome)
+            .ValidateWhen()
+            .IsNullOrEmpty()
+            .AddNotification(new NotificationModel("PRIMEIRO_NOME", "Primeiro nome é obrigatório"));
 
-        PrimeiroNome = primeiroNome;
-        Sobrenome = sobrenome;
-
+        Set(nome => nome.Sobrenome, sobrenome)
+            .ValidateWhen()
+            .IsNullOrEmpty()
+            .AddNotification(new NotificationModel("SOBRENOME", "SobreNome é obrigatório"));
+       
         return this;
     }
 }
