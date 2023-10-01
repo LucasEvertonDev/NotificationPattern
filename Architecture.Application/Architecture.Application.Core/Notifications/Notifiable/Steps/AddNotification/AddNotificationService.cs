@@ -1,8 +1,8 @@
-﻿using Architecture.Application.Core.Notifications.Services;
+﻿using Architecture.Application.Core.Notifications.Notifiable.Steps.AfterValidationWhen;
 
 namespace Architecture.Application.Core.Notifications.Notifiable.Steps.AddNotification;
 
-public class AddNotificationService<TOut> where TOut : AfterValidationWhen.AfterValidationWhen
+public class AddNotificationService<TOut> where TOut : IAfterValidationWhen
 {
     private readonly NotificationContext _notificationContext;
     private readonly bool _includeNotification;
@@ -22,6 +22,6 @@ public class AddNotificationService<TOut> where TOut : AfterValidationWhen.After
             _notificationContext.AddNotification(notification);
         }
 
-        return (TOut)new AfterValidationWhen.AfterValidationWhen(_notificationContext, _value);
+        return Activator.CreateInstance(typeof(TOut), _notificationContext, _value);
     }
 }

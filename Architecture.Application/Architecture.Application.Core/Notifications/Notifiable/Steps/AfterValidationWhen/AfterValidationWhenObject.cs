@@ -2,7 +2,7 @@
 
 namespace Architecture.Application.Core.Notifications.Notifiable.Steps.AfterValidationWhen;
 
-public class AfterValidationWhenObject : AfterValidationWhen
+public class AfterValidationWhenObject : AfterValidationWhen, IAfterValidationWhen
 {
     protected object _currentvalue { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace Architecture.Application.Core.Notifications.Notifiable.Steps.AfterValidationWhen;
 
-public class AfterValidationWhen
+public class AfterValidationWhen : IAfterValidationWhen
 {
     protected readonly NotificationContext _notificationContext;
     protected readonly dynamic _value;

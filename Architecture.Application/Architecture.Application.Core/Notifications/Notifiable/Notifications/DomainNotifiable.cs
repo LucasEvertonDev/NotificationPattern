@@ -1,11 +1,10 @@
 ﻿using Architecture.Application.Core.Notifications.Notifiable.Notifications.Base;
-using Architecture.Application.Core.Notifications.Services;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Architecture.Application.Core.Notifications.Notifiable.Notifications;
 
-public partial class DomainNotifiable<TEntity> : INotifiable
+public partial class DomainNotifiable<TEntity> : IDomainNotifiable
 {
     /// <summary>
     /// Notification Context

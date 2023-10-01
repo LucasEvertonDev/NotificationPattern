@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Architecture.Application.Core.Notifications.Notifiable.Steps.AfterValidationWhen;
 
-public class AfterValidationWhenString : AfterValidationWhen
+public class AfterValidationWhenString : AfterValidationWhen, IAfterValidationWhen
 {
     protected string _currentvalue { get; set; }
 

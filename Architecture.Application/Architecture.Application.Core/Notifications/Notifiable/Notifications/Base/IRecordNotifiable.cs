@@ -4,7 +4,6 @@ namespace Architecture.Application.Core.Notifications.Notifiable.Notifications.B
 {
     public interface IRecordNotifiable : INotifiable
     {
-        bool IsValid();
-        void SetNotificationContext(NotificationContext context);
+ 
     }
 }

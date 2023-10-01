@@ -14,6 +14,7 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
 
         public override Task<PessoaCriadaModel> ExecuteAsync(CriarPessoaModel param)
         {
+            #region
             ///https://balta.io/blog/ef-core-value-objects
             //var nome = InjectVO<Nome>().CreateNome(param.PrimeiroNome, param.Sobrenome);
             //var nomeb = InjectVO<Nome>().CreateNome(param.PrimeiroNome, param.Sobrenome);
@@ -24,12 +25,14 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
             ////}
 
             ////var aux  = _notificationContext.Notifications;
+            #endregion
 
             var pessoa = Notify<Pessoa>().CriarPessoa(
                 primeiroNome: param.PrimeiroNome,
                 sobrenome: param.Sobrenome,
                 email: param.Email,
-                dataNascimento: param.DataNascimento
+                dataNascimento: param.DataNascimento,
+                enderecoModel: param.Endereco
             );
 
             if (!pessoa.IsValid())
