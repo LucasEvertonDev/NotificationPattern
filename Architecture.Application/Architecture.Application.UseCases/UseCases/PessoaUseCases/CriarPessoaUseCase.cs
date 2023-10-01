@@ -14,20 +14,9 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
 
         public override Task<PessoaCriadaModel> ExecuteAsync(CriarPessoaModel param)
         {
-            #region
-            ///https://balta.io/blog/ef-core-value-objects
-            //var nome = InjectVO<Nome>().CreateNome(param.PrimeiroNome, param.Sobrenome);
-            //var nomeb = InjectVO<Nome>().CreateNome(param.PrimeiroNome, param.Sobrenome);
+            Notifications.Failure(new Core.Notifications.NotificationModel("business_logic", "Nome inválido."));
 
-            ////if(nome == nomeb)
-            ////{
-
-            ////}
-
-            ////var aux  = _notificationContext.Notifications;
-            #endregion
-
-            var pessoa = Notify<Pessoa>().CriarPessoa(
+            var pessoa = Notifiable<Pessoa>().CriarPessoa(
                 primeiroNome: param.PrimeiroNome,
                 sobrenome: param.Sobrenome,
                 email: param.Email,
@@ -38,6 +27,11 @@ namespace Architecture.Application.UseCases.UseCases.PessoaUseCases
             if (!pessoa.IsValid())
             {
                 return Task.FromResult(new PessoaCriadaModel());
+            }
+
+            if (pessoa.Nome.Sobrenome == "string")
+            {
+                Notifications.Failure(new Core.Notifications.NotificationModel("business_logic", "Nome inválido."));
             }
 
             return Task.FromResult(new PessoaCriadaModel()

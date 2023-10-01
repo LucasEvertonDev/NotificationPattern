@@ -1,5 +1,5 @@
-﻿using Architecture.Application.Core.Notifications;
-using Architecture.Application.Core.Notifications.Context;
+﻿using Architecture.Application.Core.Notifications.Context;
+using Architecture.Application.Core.Notifications.Notifiable.Notifications;
 using Architecture.Application.Core.Notifications.Notifiable.Notifications.Base;
 using Architecture.Application.Core.Structure.UnitOfWork;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +8,7 @@ using System.Security.Principal;
 
 namespace Architecture.Application.UseCases.UseCases.Base;
 
-public abstract class BaseUseCase<TParam, TRetorno>
+public abstract class BaseUseCase<TParam, TRetorno> : Notifiable
 {
     private readonly IUnitOfWork _unitOfWork;
     protected readonly IIdentity _identity;
@@ -58,21 +58,15 @@ public abstract class BaseUseCase<TParam, TRetorno>
     /// </summary>
     /// <typeparam name="TNotifiable"></typeparam>
     /// <returns></returns>
-    protected TNotifiable Notify<TNotifiable>() where TNotifiable : INotifiable
+    protected TNotifiable Notifiable<TNotifiable>() where TNotifiable : INotifiable
     {
         var entity = Activator.CreateInstance<TNotifiable>();
         entity.SetNotificationContext(_notificationContext);
         return entity;
     }
-
-
-    public void RegisterNotification()
-    {
-
-    }
 }
 
-public abstract class BaseUseCase<TParam>
+public abstract class BaseUseCase<TParam> : Notifiable
 {
     private readonly IUnitOfWork _unitOfWork;
     protected readonly IIdentity _identity;
@@ -133,7 +127,7 @@ public abstract class BaseUseCase<TParam>
     }
 }
 
-public abstract class BaseUseCase
+public abstract class BaseUseCase : Notifiable
 {
     private readonly IUnitOfWork _unitOfWork;
     protected readonly IIdentity _identity;

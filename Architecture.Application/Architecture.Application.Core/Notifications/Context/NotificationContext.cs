@@ -40,4 +40,9 @@ public class NotificationContext
     {
         _notifications.AddRange(notifications);
     }
+
+    public void Failure(NotificationModel notifications)
+    {
+        _notifications.Add(notifications);
+    }
 }
